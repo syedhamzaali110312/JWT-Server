@@ -1,13 +1,15 @@
-import express from "express";
-import { createUser, loginUser } from "../Controllers/user.js";
-import { addProduct, getAllProducts } from "../Controllers/product.js";
+import mongoose from "mongoose";
 
-const router = express.Router();
+const userSchema = new mongoose.Schema({
+	username: {
+		type: String,
+		required: true,
+		unique: true
+	},
+	password: {
+		type: String,
+		required: true
+	}
+});
 
-router.post("/login", loginUser);
-router.post("/createuser", createUser);
-
-router.post("/addproduct", addProduct);
-router.get("/products", getAllProducts);
-
-export default router;
+export default mongoose.model('User', userSchema);
